@@ -4,8 +4,6 @@ source ./lib/runner_helper.sh
 
 _remove_logs
 
-exit 1
-
 VERSION=7.2.1.53
 ABS_PATH=$(pwd)
 PORT=80
