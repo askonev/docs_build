@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source ./lib/runner_helper.sh
+
+_remove_logs
+
+exit 1
+
+VERSION=7.2.1.53
+ABS_PATH=$(pwd)
+PORT=80
+
+docker run  -itd \
+            -p $PORT:80 \
+            --name ds \
+            --env JWT_ENABLED=false \
+            --restart unless-stopped \
+            -v $ABS_PATH/DocumentServer/logs:/var/log/onlyoffice  \
+            -v $ABS_PATH/DocumentServer/data:/var/www/onlyoffice/Data  \
+            -v $ABS_PATH/DocumentServer/lib:/var/lib/onlyoffice \
+            -v $ABS_PATH/DocumentServer/db:/var/lib/postgresql \
+            onlyoffice/4testing-documentserver-ee:$VERSION
+
+sleep 120
+
+# docker exec ds  /var/www/onlyoffice/documentserver/npm/json -f \ 
+                # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
+docker exec ds sudo supervisorctl start ds:example
+docker exec ds  sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf

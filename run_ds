@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PORT=1000
+VERSION=7.2.1.49
+
+
+docker run  -itd \
+            -p $PORT:80 \
+            --restart unless-stopped \
+            --name ds_hotfix \
+            onlyoffice/4testing-documentserver-ee:$VERSION
+
+sleep 120
+
+# docker exec fix_ds  /var/www/onlyoffice/documentserver/npm/json -f \
+                # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
+                
+docker exec ds_hotfix sudo supervisorctl start ds:example
+docker exec ds_hotfix sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
