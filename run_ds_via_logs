@@ -4,7 +4,7 @@ source ./lib/runner_helper.sh
 
 _remove_logs
 
-VERSION=7.2.1.53
+VERSION=7.3.0.104
 ABS_PATH=$(pwd)
 PORT=80
 
@@ -24,4 +24,5 @@ sleep 120
 # docker exec ds  /var/www/onlyoffice/documentserver/npm/json -f \ 
                 # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
 docker exec ds sudo supervisorctl start ds:example
-docker exec ds  sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
+docker exec ds sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
+docker exec ds cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
