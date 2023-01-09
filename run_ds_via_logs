@@ -4,14 +4,17 @@ source ./lib/runner_helper.sh
 
 _remove_logs
 
-VERSION=7.3.0.104
 ABS_PATH=$(pwd)
+
+# main config
+VERSION=7.3.0.104
 PORT=80
+JWT_ENABLED=false
 
 docker run  -itd \
             -p $PORT:80 \
             --name ds \
-            --env JWT_ENABLED=false \
+            --env JWT_ENABLED=$JWT_ENABLED \
             --restart unless-stopped \
             -v $ABS_PATH/DocumentServer/logs:/var/log/onlyoffice  \
             -v $ABS_PATH/DocumentServer/data:/var/www/onlyoffice/Data  \
