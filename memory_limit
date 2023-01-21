@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 source ./lib/runner_helper.sh
 
 _remove_logs
