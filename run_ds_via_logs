@@ -29,3 +29,8 @@ sleep 120
 docker exec ds sudo supervisorctl start ds:example
 docker exec ds sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
 docker exec ds cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+
+
+#   /etc/onlyoffice/documentserver/log4js/production.json
+# replace the 'WARN' value with 'DEBUG' of the "level" parameter.
+#   supervisorctl restart all
