@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#!/bin/bash
+
+source ./lib/runner_helper.sh
+
+_remove_logs
+
+ABS_PATH=$(pwd)
+
+## main configs
+VERSION=7.2.2.69
+PORT=2000
+
+# If --memory and --memory-swap are set to the same value, 
+# this prevents containers from using any swap.
+# This is because --memory-swap is the amount of combined memory 
+# and swap that can be used, while --memory is only the amount 
+# of physical memory that can be used.
+
+docker run  -itd \
+            -p $PORT:80 \
+            --name out_of_memory \
+            -m 2g \
+            --memory-swap 2g \
+            --env JWT_ENABLED=false \
+            -v $ABS_PATH/DocumentServer/logs:/var/log/onlyoffice  \
+            -v $ABS_PATH/DocumentServer/data:/var/www/onlyoffice/Data  \
+            -v $ABS_PATH/DocumentServer/lib:/var/lib/onlyoffice \
+            -v $ABS_PATH/DocumentServer/db:/var/lib/postgresql \
+            onlyoffice/4testing-documentserver-ee:$VERSION
+
+# sleep 120
