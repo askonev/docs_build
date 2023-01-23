@@ -3,6 +3,7 @@
 ## main configs
 PORT=80
 VERSION=7.2.0.164
+BRANCH=de
 JWT_ENABLED=false
 
 PWD=$(pwd)
@@ -13,7 +14,7 @@ docker run  -itd \
             --env JWT_ENABLED=$JWT_ENABLED \
             --restart unless-stopped \
             --name ds_dev_lic \
-            onlyoffice/4testing-documentserver-ee:$VERSION
+            onlyoffice/4testing-documentserver-$BRANCH:$VERSION
 
 sleep 80
 
