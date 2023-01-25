@@ -2,9 +2,9 @@
 
 source ./lib/runner_helper.sh
 
-_remove_logs
-
 ABS_PATH=$(pwd)
+
+_remove_logs $ABS_PATH/DocumentServer
 
 ## main configs
 VERSION=7.2.2.69
