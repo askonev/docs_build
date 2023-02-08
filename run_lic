@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ## main configs
-PORT=80
-VERSION=7.2.0.164
-BRANCH=de
+PORT=1000
+VERSION=7.3.0.184
+BRANCH=ee
 JWT_ENABLED=false
 
 PWD=$(pwd)
@@ -13,14 +13,14 @@ docker run  -itd \
             -v $PWD/license:/var/www/onlyoffice/Data \
             --env JWT_ENABLED=$JWT_ENABLED \
             --restart unless-stopped \
-            --name ds_dev_lic \
+            --name ds_lic \
             onlyoffice/4testing-documentserver-$BRANCH:$VERSION
 
 sleep 80
 
-# docker exec ds_dev_lic  /var/www/onlyoffice/documentserver/npm/json -f \
+# docker exec ds_lic  /var/www/onlyoffice/documentserver/npm/json -f \
                 # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
                 
-docker exec ds_dev_lic sudo supervisorctl start ds:example
-docker exec ds_dev_lic sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
-docker exec ds_dev_lic cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+docker exec ds_lic sudo supervisorctl start ds:example
+docker exec ds_lic sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
+docker exec ds_lic cat /etc/supervisor/conf.d/ds-example.conf | grep autostart

@@ -10,14 +10,14 @@ docker run  -itd \
             -p $PORT:80 \
             --env JWT_ENABLED=$JWT_ENABLED \
             --restart unless-stopped \
-            --name ds_hotfix \
+            --name ds_without_jwt \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
 sleep 120
 
-# docker exec ds_hotfix  /var/www/onlyoffice/documentserver/npm/json -f \
+# docker exec ds_without_jwt  /var/www/onlyoffice/documentserver/npm/json -f \
                 # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
                 
-docker exec ds_hotfix sudo supervisorctl start ds:example
-docker exec ds_hotfix sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
-docker exec ds_hotfix cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+docker exec ds_without_jwt sudo supervisorctl start ds:example
+docker exec ds_without_jwt sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
+docker exec ds_without_jwt cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
