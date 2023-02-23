@@ -2,7 +2,7 @@
 
 ## main configs
 PORT=1000
-VERSION=7.3.0.184
+VERSION=7.3.3.11
 BRANCH=ee
 JWT_ENABLED=false
 
@@ -24,3 +24,7 @@ sleep 80
 docker exec ds_lic sudo supervisorctl start ds:example
 docker exec ds_lic sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
 docker exec ds_lic cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+
+#   /etc/onlyoffice/documentserver/log4js/production.json
+# replace the 'WARN' value with 'DEBUG' of the "level" parameter.
+#   supervisorctl restart all
