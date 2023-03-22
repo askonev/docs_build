@@ -2,7 +2,7 @@
 
 ## main configs
 PORT=1000
-VERSION=7.3.3.11
+VERSION=7.3.3.49
 BRANCH=ee
 JWT_ENABLED=false
 

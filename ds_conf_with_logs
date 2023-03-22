@@ -7,7 +7,7 @@ ABS_PATH=$(pwd)
 _remove_logs $ABS_PATH/DocumentServer
 
 # main config
-VERSION=7.3.3.11
+VERSION=7.3.3.49
 PORT=80
 JWT_ENABLED=false
 
@@ -22,7 +22,7 @@ docker run  -itd \
             -v $ABS_PATH/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-sleep 120
+sleep 80
 
 # docker exec ds  /var/www/onlyoffice/documentserver/npm/json -f \ 
                 # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
