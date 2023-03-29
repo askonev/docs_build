@@ -3,19 +3,16 @@
 ## main configs
 PORT=1000
 VERSION=7.3.3.50
-BRANCH=ee
 JWT_ENABLED=false
-NAME=lic
+NAME=ds_jwt_disable
 
-PWD=$(pwd)
 
 docker run  -itd \
             -p $PORT:80 \
-            -v $PWD/license:/var/www/onlyoffice/Data \
             --env JWT_ENABLED=$JWT_ENABLED \
             --restart unless-stopped \
             --name $NAME \
-            onlyoffice/4testing-documentserver-$BRANCH:$VERSION
+            onlyoffice/4testing-documentserver-ee:$VERSION
 
 sleep 80
 
@@ -25,7 +22,3 @@ sleep 80
 docker exec $NAME sudo supervisorctl start ds:example
 docker exec $NAME sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
 docker exec $NAME cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
-
-#   /etc/onlyoffice/documentserver/log4js/production.json
-# replace the 'WARN' value with 'DEBUG' of the "level" parameter.
-#   supervisorctl restart all
