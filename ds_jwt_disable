@@ -1,8 +1,9 @@
 #!/bin/bash
 
+source .env
+
 ## main configs
 PORT=1000
-VERSION=7.3.3.50
 JWT_ENABLED=false
 NAME=ds_jwt_disable
 

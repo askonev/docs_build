@@ -1,13 +1,13 @@
 #!/bin/bash
 
 source ./lib/runner_helper.sh
+source .env
 
 ABS_PATH=$(pwd)
 
 _remove_logs $ABS_PATH/DocumentServer
 
 # main config
-VERSION=7.3.3.50
 PORT=80
 JWT_ENABLED=true
 
