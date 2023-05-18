@@ -3,23 +3,21 @@
 source ./lib/runner_helper.sh
 source .env
 
-ABS_PATH=$(pwd)
-
-_remove_logs $ABS_PATH/DocumentServer
-
 # main config
 PORT=80
-JWT_ENABLED=true
+JWT=true
+
+_remove_logs $PWD/DocumentServer
 
 docker run  -itd \
             -p $PORT:80 \
             --name ds \
-            --env JWT_ENABLED=$JWT_ENABLED \
+            --env JWT_ENABLED=$JWT \
             --restart unless-stopped \
-            -v $ABS_PATH/DocumentServer/logs:/var/log/onlyoffice  \
-            -v $ABS_PATH/DocumentServer/data:/var/www/onlyoffice/Data  \
-            -v $ABS_PATH/DocumentServer/lib:/var/lib/onlyoffice \
-            -v $ABS_PATH/DocumentServer/db:/var/lib/postgresql \
+            -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
+            -v $PWD/DocumentServer/data:/var/www/onlyoffice/Data  \
+            -v $PWD/DocumentServer/lib:/var/lib/onlyoffice \
+            -v $PWD/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
 sleep 80

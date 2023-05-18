@@ -3,12 +3,11 @@
 source ./lib/runner_helper.sh
 source .env
 
-ABS_PATH=$(pwd)
-
-_remove_logs $ABS_PATH/DocumentServer
-
 ## main configs
 PORT=2000
+JWT=false
+
+_remove_logs $PWD/DocumentServer
 
 # If --memory and --memory-swap are set to the same value, 
 # this prevents containers from using any swap.
@@ -21,11 +20,11 @@ docker run  -itd \
             --name out_of_memory \
             -m 2g \
             --memory-swap 2g \
-            --env JWT_ENABLED=false \
-            -v $ABS_PATH/DocumentServer/logs:/var/log/onlyoffice  \
-            -v $ABS_PATH/DocumentServer/data:/var/www/onlyoffice/Data  \
-            -v $ABS_PATH/DocumentServer/lib:/var/lib/onlyoffice \
-            -v $ABS_PATH/DocumentServer/db:/var/lib/postgresql \
+            --env JWT_ENABLED=$JWT \
+            -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
+            -v $PWD/DocumentServer/data:/var/www/onlyoffice/Data  \
+            -v $PWD/DocumentServer/lib:/var/lib/onlyoffice \
+            -v $PWD/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
 # sleep 120

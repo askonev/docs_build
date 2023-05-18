@@ -8,8 +8,6 @@ BRANCH=ee
 JWT_ENABLED=false
 NAME=lic
 
-PWD=$(pwd)
-
 docker run  -itd \
             -p $PORT:80 \
             -v $PWD/license:/var/www/onlyoffice/Data \
