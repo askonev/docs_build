@@ -3,7 +3,7 @@
 source .env
 
 ## main configs
-PORT=1000
+PORT=3000
 BRANCH=ee
 JWT_ENABLED=false
 NAME=lic
