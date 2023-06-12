@@ -6,6 +6,8 @@ source .env
 # main config
 PORT=80
 JWT=true
+JWT_SECRET=secret
+JWT_HEADER=Authorization
 
 _remove_logs $PWD/DocumentServer
 
@@ -13,6 +15,8 @@ docker run  -itd \
             -p $PORT:80 \
             --name ds \
             --env JWT_ENABLED=$JWT \
+            --env JWT_SECRET=$JWT_SECRET \
+            --env JWT_HEADER-$JWT_HEADER \
             --restart unless-stopped \
             -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
             -v $PWD/DocumentServer/data:/var/www/onlyoffice/Data  \
