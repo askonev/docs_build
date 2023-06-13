@@ -16,7 +16,7 @@ docker run  -itd \
             --name ds \
             --env JWT_ENABLED=$JWT \
             --env JWT_SECRET=$JWT_SECRET \
-            --env JWT_HEADER-$JWT_HEADER \
+            --env JWT_HEADER=$JWT_HEADER \
             --restart unless-stopped \
             -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
             -v $PWD/DocumentServer/data:/var/www/onlyoffice/Data  \
