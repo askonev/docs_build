@@ -5,11 +5,13 @@ source .env
 ## main configs
 PORT=1000
 JWT=false
+PRIVATE_IP=true
 NAME=ds_jwt_disable
 
 docker run  -itd \
             -p $PORT:80 \
             --env JWT_ENABLED=$JWT \
+            --env ALLOW_PRIVATE_IP_ADDRESS=$PRIVATE_IP \
             --restart unless-stopped \
             --name $NAME \
             onlyoffice/4testing-documentserver-ee:$VERSION

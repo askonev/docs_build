@@ -6,12 +6,14 @@ source .env
 PORT=3000
 BRANCH=ee
 JWT_ENABLED=false
+PRIVATE_IP=true
 NAME=lic
 
 docker run  -itd \
             -p $PORT:80 \
             -v $PWD/license:/var/www/onlyoffice/Data \
             --env JWT_ENABLED=$JWT_ENABLED \
+            --env ALLOW_PRIVATE_IP_ADDRESS=$PRIVATE_IP \
             --restart unless-stopped \
             --name $NAME \
             onlyoffice/4testing-documentserver-$BRANCH:$VERSION
