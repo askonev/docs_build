@@ -27,4 +27,6 @@ docker run  -itd \
             -v $PWD/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-# sleep 120
+echo 'sleep 80'; sleep 80
+
+bash lib/after.sh $NAME

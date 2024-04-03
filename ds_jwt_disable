@@ -16,11 +16,6 @@ docker run  -itd \
             --name $NAME \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-sleep 80
+echo 'sleep 80'; sleep 80
 
-# docker exec $NAME  /var/www/onlyoffice/documentserver/npm/json -f \
-                # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
-                
-docker exec $NAME sudo supervisorctl start ds:example
-docker exec $NAME sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
-docker exec $NAME cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+bash lib/after.sh $NAME

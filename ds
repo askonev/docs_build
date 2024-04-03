@@ -24,15 +24,6 @@ docker run  -itd \
             -v $PWD/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-sleep 80
+echo 'sleep 80'; sleep 80
 
-# docker exec ds  /var/www/onlyoffice/documentserver/npm/json -f \ 
-                # /etc/onlyoffice/documentserver/local.json 'services.CoAuthoring.secret.session.string'
-docker exec ds sudo supervisorctl start ds:example
-docker exec ds sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
-docker exec ds cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
-
-
-#   /etc/onlyoffice/documentserver/log4js/production.json
-# replace the 'WARN' value with 'DEBUG' of the "level" parameter.
-#   supervisorctl restart all
+bash lib/after.sh $NAME
