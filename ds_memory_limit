@@ -6,6 +6,7 @@ source .env
 ## main configs
 PORT=2000
 JWT=false
+NAME=out_of_memory
 
 _remove_logs $PWD/DocumentServer
 
@@ -17,7 +18,7 @@ _remove_logs $PWD/DocumentServer
 
 docker run  -itd \
             -p $PORT:80 \
-            --name out_of_memory \
+            --name $NAME \
             -m 2g \
             --memory-swap 2g \
             --env JWT_ENABLED=$JWT \

@@ -8,12 +8,13 @@ PORT=80
 JWT=true
 JWT_SECRET=secret
 JWT_HEADER=Authorization
+NAME=ds
 
 _remove_logs $PWD/DocumentServer
 
 docker run  -itd \
             -p $PORT:80 \
-            --name ds \
+            --name $NAME \
             --env JWT_ENABLED=$JWT \
             --env JWT_SECRET=$JWT_SECRET \
             --env JWT_HEADER=$JWT_HEADER \
