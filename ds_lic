@@ -3,6 +3,7 @@
 PWD=$(pwd)
 
 source .env
+source lib/pluginmanager.sh
 
 ## main configs
 PORT=3000
@@ -10,6 +11,8 @@ BRANCH=ee
 JWT_ENABLED=false
 PRIVATE_IP=true
 NAME=lic
+
+_pm_install 'macros' $NAME
 
 docker run  -itd \
             -p $PORT:80 \
