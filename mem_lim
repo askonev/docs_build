@@ -2,13 +2,14 @@
 
 PWD=$(pwd)
 
-source ./lib/runner_helper
 source .env
+source lib/check_manager
+source ./lib/runner_helper
 
 ## main configs
 PORT=2000
 JWT=false
-NAME=out_of_memory
+NAME=mem_lim
 
 _remove_logs $PWD/DocumentServer
 
@@ -30,6 +31,4 @@ docker run  -itd \
             -v $PWD/DocumentServer/db:/var/lib/postgresql \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-echo 'sleep 80'; sleep 80
-
-bash lib/after $NAME
+_wait_launch $NAME

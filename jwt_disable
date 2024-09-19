@@ -3,6 +3,7 @@
 PWD=$(pwd)
 
 source .env
+source lib/check_manager
 
 ## main configs
 PORT=1000
@@ -18,6 +19,4 @@ docker run  -itd \
             --name $NAME \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
-echo 'sleep 80'; sleep 80
-
-bash lib/after $NAME
+_wait_launch $NAME
