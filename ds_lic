@@ -3,7 +3,7 @@
 PWD=$(pwd)
 
 source .env
-source lib/pluginmanager.sh
+source lib/check_manager.sh
 
 ## main configs
 PORT=3000
@@ -11,8 +11,6 @@ BRANCH=ee
 JWT_ENABLED=false
 PRIVATE_IP=true
 NAME=lic
-
-_pm_install 'macros' $NAME
 
 docker run  -itd \
             -p $PORT:80 \
@@ -23,6 +21,4 @@ docker run  -itd \
             --name $NAME \
             onlyoffice/4testing-documentserver-$BRANCH:$VERSION
 
-echo 'sleep 80'; sleep 80
-
-bash lib/after.sh $NAME
+_wait_launch $NAME

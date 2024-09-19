@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source lib/plugin_manager.sh
+
 NAME=$1
 PACKAGE_TYPE='onlyoffice-documentserver-ee'
 
@@ -15,9 +17,13 @@ docker exec -it $NAME dpkg-query --showformat='${Version}\n' --show $PACKAGE_TYP
 
 docker exec "$NAME" supervisorctl restart all
 
-echo ''
+printf "\n"
 
 docker exec $NAME  /var/www/onlyoffice/documentserver/npm/json -f \
                    /etc/onlyoffice/documentserver/local.json \
                    'services.CoAuthoring.secret.session.string'
 docker exec $NAME cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
+
+printf "\n"
+
+_pm_install 'macros' $NAME
