@@ -5,25 +5,21 @@ source lib/plugin_manager
 NAME=$1
 PACKAGE_TYPE='onlyoffice-documentserver-ee'
 
-# docker exec $NAME sudo supervisorctl start ds:example
+# autostart example
 docker exec $NAME sudo sed 's,autostart=false,autostart=true,' -i \
                             /etc/supervisor/conf.d/ds-example.conf
-
-docker exec -it $NAME sed -i 's/WARN/ALL/g' \
+# all logs enable
+docker exec $NAME sed -i 's/WARN/ALL/g' \
                              /etc/onlyoffice/documentserver/log4js/production.json
-docker exec -it $NAME sed -i 's,access_log off,access_log /var/log/onlyoffice/documentserver/nginx.access.log,' \
+docker exec $NAME sed -i 's,access_log off,access_log /var/log/onlyoffice/documentserver/nginx.access.log,' \
                              /etc/onlyoffice/documentserver/nginx/includes/ds-common.conf
-docker exec -it $NAME dpkg-query --showformat='${Version}\n' --show $PACKAGE_TYPE
-
-docker exec "$NAME" supervisorctl restart all
-
+# get version
+docker exec $NAME dpkg-query --showformat='${Version}\n' --show $PACKAGE_TYPE
+# restart services (after restart example runing)
+docker exec $NAME supervisorctl restart all >> /dev/null
 printf "\n"
-
-docker exec $NAME  /var/www/onlyoffice/documentserver/npm/json -f \
-                   /etc/onlyoffice/documentserver/local.json \
-                   'services.CoAuthoring.secret.session.string'
-docker exec $NAME cat /etc/supervisor/conf.d/ds-example.conf | grep autostart
-
-printf "\n"
-
+# get secret jwt
+docker exec $NAME /var/www/onlyoffice/documentserver/npm/json -f \
+                  /etc/onlyoffice/documentserver/local.json \
+                  'services.CoAuthoring.secret.session.string'
 _pm_install 'macros' $NAME

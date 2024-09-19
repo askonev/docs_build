@@ -1,0 +1,3 @@
+#!/bin/bash
+url="https://registry.hub.docker.com/v2/repositories/onlyoffice/4testing-documentserver-ee/tags/"
+curl -s $url | jq '.results[].name'

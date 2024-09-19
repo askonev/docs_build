@@ -5,7 +5,14 @@ PWD=$(pwd)
 source .env
 source lib/launch_manager
 
-## main configs
+# get latest existing tag via docker hub
+while getopts "l" flag; do
+  case "${flag}" in
+    l) VERSION=$(bash lib/get_tags | head -n 1 | tr -d '"') && echo $VERSION ;;
+    *) echo "Invalid option"; exit 1 ;;
+  esac
+done
+
 PORT=3000
 BRANCH=ee
 JWT_ENABLED=false
@@ -14,11 +21,11 @@ NAME=lic
 
 docker run  -itd \
             -p $PORT:80 \
-            -v $PWD/license:/var/www/onlyoffice/Data \
-            --env JWT_ENABLED=$JWT_ENABLED \
-            --env ALLOW_PRIVATE_IP_ADDRESS=$PRIVATE_IP \
+            -v license:/var/www/onlyoffice/Data \
+            -e JWT_ENABLED=$JWT_ENABLED \
+            -e ALLOW_PRIVATE_IP_ADDRESS=$PRIVATE_IP \
             --restart unless-stopped \
             --name $NAME \
             onlyoffice/4testing-documentserver-$BRANCH:$VERSION
 
-_wait_launch $NAME
+if [ $? -eq 0 ]; then _wait_launch $NAME; fi;
