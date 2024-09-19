@@ -1,5 +1,11 @@
 #!/bin/bash
 
+_remove_logs() {
+  echo "logs dir: $1"
+  sudo rm -r $1/*
+  shift
+}
+
 _wait_launch() {
     name=$1
     status=$(get_log_status $name)

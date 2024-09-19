@@ -3,8 +3,7 @@
 PWD=$(pwd)
 
 source .env
-source lib/check_manager
-source ./lib/runner_helper
+source lib/launch_manager
 
 ## main configs
 PORT=2000

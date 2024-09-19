@@ -3,7 +3,7 @@
 PWD=$(pwd)
 
 source .env
-source lib/check_manager
+source lib/launch_manager
 
 ## main configs
 PORT=3000
