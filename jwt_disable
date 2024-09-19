@@ -20,4 +20,4 @@ docker run  -itd \
 
 echo 'sleep 80'; sleep 80
 
-bash lib/after.sh $NAME
+bash lib/after $NAME

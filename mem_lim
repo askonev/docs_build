@@ -2,25 +2,28 @@
 
 PWD=$(pwd)
 
-source ./lib/runner_helper.sh
+source ./lib/runner_helper
 source .env
 
-# main config
-PORT=80
-JWT=true
-JWT_SECRET=secret
-JWT_HEADER=Authorization
-NAME=ds
+## main configs
+PORT=2000
+JWT=false
+NAME=out_of_memory
 
 _remove_logs $PWD/DocumentServer
+
+# If --memory and --memory-swap are set to the same value, 
+# this prevents containers from using any swap.
+# This is because --memory-swap is the amount of combined memory 
+# and swap that can be used, while --memory is only the amount 
+# of physical memory that can be used.
 
 docker run  -itd \
             -p $PORT:80 \
             --name $NAME \
+            -m 2g \
+            --memory-swap 2g \
             --env JWT_ENABLED=$JWT \
-            --env JWT_SECRET=$JWT_SECRET \
-            --env JWT_HEADER=$JWT_HEADER \
-            --restart unless-stopped \
             -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
             -v $PWD/DocumentServer/data:/var/www/onlyoffice/Data  \
             -v $PWD/DocumentServer/lib:/var/lib/onlyoffice \
@@ -29,4 +32,4 @@ docker run  -itd \
 
 echo 'sleep 80'; sleep 80
 
-bash lib/after.sh $NAME
+bash lib/after $NAME
