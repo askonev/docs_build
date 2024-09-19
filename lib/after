@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source lib/plugin_manager.sh
+source lib/plugin_manager
 
 NAME=$1
 PACKAGE_TYPE='onlyoffice-documentserver-ee'

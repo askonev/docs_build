@@ -15,8 +15,9 @@ _wait_launch() {
             sleep 5
             status=$(get_log_status $name)
             if [ $counter -ge 80 ]; then break; fi;
+            echo "[$name] time: $counter, status: $status"
         done
-    bash lib/after.sh $name
+    bash lib/after $name
 }
 
 
