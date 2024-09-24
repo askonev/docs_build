@@ -22,4 +22,4 @@ printf "\n"
 docker exec $NAME /var/www/onlyoffice/documentserver/npm/json -f \
                   /etc/onlyoffice/documentserver/local.json \
                   'services.CoAuthoring.secret.session.string'
-_pm_install 'macros' $NAME
+_pm_install $NAME
