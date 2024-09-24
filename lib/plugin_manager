@@ -5,7 +5,7 @@ SDKJS_PLUGINS_DIR=/var/www/onlyoffice/documentserver/sdkjs-plugins
 PM=pluginsmanager
 
 _pm_install() {
-    docker exec "$2" ./"$TOOLS_DIR/$PM" \
+    docker exec "$2" "$TOOLS_DIR/$PM" \
                     --directory="$SDKJS_PLUGINS_DIR" \
                     --install=$1 >> /dev/null
 }
