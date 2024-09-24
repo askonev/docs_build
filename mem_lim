@@ -21,7 +21,7 @@ _remove_logs $PWD/DocumentServer
 docker run  -itd \
             -p $PORT:80 \
             --name $NAME \
-            -m 2g \
+            -memory 2g \
             --memory-swap 2g \
             --env JWT_ENABLED=$JWT \
             -v $PWD/DocumentServer/logs:/var/log/onlyoffice  \
