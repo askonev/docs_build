@@ -1,0 +1,38 @@
+#!/bin/bash
+
+grep -n "location /example/" /etc/onlyoffice/documentserver-example/nginx/includes/ds-example.conf | \
+        awk -F: '{print $1 + 1}' | \
+        xargs -I {} sed -i '{}i client_max_body_size 1000M;' /etc/onlyoffice/documentserver-example/nginx/includes/ds-example.conf
+
+grep -n "http {" /etc/nginx/nginx.conf | \
+        awk -F: '{print $1 + 1}' | \
+        xargs -I {} sed -i '{}i client_max_body_size 1000M;' /etc/nginx/nginx.conf
+
+sed -i -e 's/104857600/10485760000/g' /etc/onlyoffice/documentserver/default.json
+sed -i -e 's/50MB/5000MB/g' /etc/onlyoffice/documentserver/default.json
+sed -i -e 's/300MB/3000MB/g' /etc/onlyoffice/documentserver/default.json
+
+sed -i -e 's/1073741824/107374182400/g' /etc/onlyoffice/documentserver-example/default.json
+sed -i -e 's/104857600/10485760000/g' /etc/onlyoffice/documentserver-example/production-linux.json
+
+service nginx restart
+supervisorctl restart all
+
+cat /etc/onlyoffice/documentserver-example/nginx/includes/ds-example.conf | grep -A1 'location /example/'
+cat /etc/nginx/nginx.conf | grep -A1 'http {'
+cat /etc/onlyoffice/documentserver/default.json | tail -26 | head -21
+cat /etc/onlyoffice/documentserver-example/default.json | grep maxFileSize
+cat /etc/onlyoffice/documentserver-example/production-linux.json | grep maxFileSize
+
+# cat /etc/onlyoffice/documentserver/default.json
+
+# "FileConverter": {
+# ...
+# "spawnOptions": {
+#   "env": {
+#     "X2T_MEMORY_LIMIT": "24GiB"
+#   }
+# }
+# ...
+
+# cat /etc/onlyoffice/documentserver/default.json | grep downloadTimeout -A2
