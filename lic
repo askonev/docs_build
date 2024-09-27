@@ -21,7 +21,7 @@ NAME=lic
 
 docker run  -itd \
             -p $PORT:80 \
-            -v license:/var/www/onlyoffice/Data \
+            -v $PWD/license:/var/www/onlyoffice/Data \
             -e JWT_ENABLED=$JWT_ENABLED \
             -e ALLOW_PRIVATE_IP_ADDRESS=$PRIVATE_IP \
             --restart unless-stopped \
