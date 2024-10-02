@@ -1,12 +1,11 @@
 #!/bin/bash
 
-TOOLS_DIR=/var/www/onlyoffice/documentserver/server/tools
-SDKJS_PLUGINS_DIR=/var/www/onlyoffice/documentserver/sdkjs-plugins
+TOOLS=/var/www/onlyoffice/documentserver/server/tools
+SCRIPT=/usr/bin/documentserver-pluginsmanager.sh
+SDKJS_PLUGINS=/var/www/onlyoffice/documentserver/sdkjs-plugins
 PM=pluginsmanager
 
 _pm_install() {
-    docker exec "$1" cat $SDKJS_PLUGINS_DIR/plugin-list-default.json; printf "\n"
-    docker exec "$1" "$TOOLS_DIR/$PM" \
-                    --directory="$SDKJS_PLUGINS_DIR" \
-                    --install=$SDKJS_PLUGINS_DIR/plugin-list-default.json >> /dev/null
+    docker exec "$1" cat $SDKJS_PLUGINS/plugin-list-default.json; printf "\n"
+    docker exec "$1" $SCRIPT --install=$SDKJS_PLUGINS/plugin-list-default.json
 }
