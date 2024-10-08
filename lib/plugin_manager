@@ -6,6 +6,7 @@ SDKJS_PLUGINS=/var/www/onlyoffice/documentserver/sdkjs-plugins
 PM=pluginsmanager
 
 _pm_install() {
-    docker exec "$1" cat $SDKJS_PLUGINS/plugin-list-default.json; printf "\n"
-    docker exec "$1" $SCRIPT --install=$SDKJS_PLUGINS/plugin-list-default.json
+    cat $PWD/lib/plugins-list-actual.json   
+    docker cp $PWD/lib/plugins-list-actual.json "$1":"$SDKJS_PLUGINS"
+    docker exec "$1" $SCRIPT --install=$SDKJS_PLUGINS/plugins-list-actual.json
 }
