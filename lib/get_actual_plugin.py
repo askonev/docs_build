@@ -7,11 +7,15 @@ from os.path import join, dirname, realpath, isdir
 REALPATH = dirname(realpath(__file__))
 PLUGIN_LIST_PATH = join(REALPATH, 'plugins-list-actual.json')
 EXCLUDED_LIST_PATH = join(REALPATH, 'excluded-plugins-list.json')
-URL='https://raw.githubusercontent.com/ONLYOFFICE/onlyoffice.github.io/refs/heads/master/store/config.json'
+CONFIG = 'refs/heads/master/store/config.json'
+REPO = 'ONLYOFFICE/onlyoffice.github.io'
+URL = f"https://raw.githubusercontent.com/{REPO}/{CONFIG}"
+
 
 def read_json(path: str) -> List or Dict:
     with open(path, "r") as file:
         return json.load(file)
+
 
 def write_json(
         path: str,
@@ -23,11 +27,13 @@ def write_json(
         json.dump(data, file, indent=4)
         file.write("\n")
 
+
 def get_plugins() -> List or Dict:
     with requests.get(URL) as response:
         response.raise_for_status()
         return [item['name'] for item in
                 json.loads(response.text)]
+
 
 if __name__ == "__main__":
     print(URL)
