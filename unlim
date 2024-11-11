@@ -9,7 +9,7 @@ source lib/launch_manager
 PORT=1000
 JWT=false
 PRIVATE_IP=true
-NAME=ds_jwt_disable
+NAME=unlim
 
 docker run  -itd \
             -p $PORT:80 \
@@ -20,3 +20,5 @@ docker run  -itd \
             onlyoffice/4testing-documentserver-ee:$VERSION
 
 _wait_launch $NAME
+
+cat ./lib/limits | docker exec -i $NAME bash
