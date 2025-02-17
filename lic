@@ -8,7 +8,7 @@ source lib/launch_manager
 # get latest existing tag via docker hub
 while getopts "l" flag; do
   case "${flag}" in
-    l) VERSION=$(bash lib/get_tags | head -n 1 | tr -d '"') && echo $VERSION ;;
+    l) VERSION=$(bash lib/get_tags| grep -v 'latest' | head -n 1 | tr -d '"') && echo $VERSION ;;
     *) echo "Invalid option"; exit 1 ;;
   esac
 done
