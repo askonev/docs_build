@@ -6,7 +6,7 @@ source .env
 source lib/launch_manager
 
 ## main configs
-PORT=2000
+PORT=2020:
 JWT=false
 NAME=mem_lim
 

@@ -6,7 +6,7 @@ source .env
 source lib/launch_manager
 
 ## main configs
-PORT=1000
+PORT=1010
 JWT=false
 PRIVATE_IP=true
 NAME=unlim

@@ -13,7 +13,7 @@ while getopts "l" flag; do
   esac
 done
 
-PORT=3000
+PORT=3030
 BRANCH=ee
 JWT_ENABLED=false
 PRIVATE_IP=true
